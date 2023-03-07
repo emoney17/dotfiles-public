@@ -97,7 +97,8 @@
   ;;"bk" 'kill-buffer-and-window
   "ot" 'mini-terminal
   "oT" 'vterm
-  "el" 'elfeed)
+  "el" 'elfeed
+  "ec" (lambda() (interactive) (find-file "~/.emacs")))
 
 (use-package evil
   :ensure t
