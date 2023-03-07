@@ -1,3 +1,4 @@
+### Forked from https://github.com/thimc/lfimg
 # Image preview support for lf (list files) using Überzug
 
 ![image](https://raw.githubusercontent.com/cirala/lfimg/master/screenshot.png)
