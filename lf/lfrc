@@ -1,0 +1,59 @@
+set shell sh
+set shellopts '-eu'
+set ifs "\n"
+set scrolloff 10
+
+set ignorecase true
+set info size
+
+set previewer ~/.config/lf/preview
+set cleaner ~/.config/lf/cleaner
+
+cmd open &{{
+    case $(file --mime-type "$f" -bL) in
+        text/*) lf -remote "send $id \$$EDITOR \$f";;
+        application/*) $READER "$f";;
+        image/*) $IMAGE -. --image-bg black "$f";;
+        video/*) $VIDEO "$f";;
+        audio/*) $AUDIO "$f";;
+    esac
+}}
+
+cmd bgmax ${{
+        case $(file --mime-type "$f" -bL) in
+        image/*) feh --bg-max "$f" ;;
+    esac
+}}
+
+cmd bgfill ${{
+        case $(file --mime-type "$f" -bL) in
+        image/*) $IMAGE --bg-fill "$f" ;;
+    esac
+}}
+
+cmd bgtile ${{
+        case $(file --mime-type "$f" -bL) in
+        image/*) $IMAGE --bg-tile "$f" ;;
+    esac
+}}
+
+# remove defaults
+map m
+map o
+map n
+map "'"
+map '"'
+map d
+
+# keybinds
+map bg1 bgfill
+map bg2 bgmax
+map bg3 bgtile
+map . set hidden!
+map dd delete
+map p paste
+map x cut
+map y copy
+map R reload
+map <enter> shell
+
