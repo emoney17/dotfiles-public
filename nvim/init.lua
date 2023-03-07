@@ -2,7 +2,7 @@
 vim.o.signcolumn = 'yes'
 vim.o.nu = true
 vim.o.relativenumber = false
-vim.o.termguicolors = true
+vim.o.termguicolors = false
 vim.o.scrolloff = 8
 vim.o.tabstop = 4
 vim.o.softtabstop = 4
@@ -57,7 +57,6 @@ packer.startup(function(use)
     use 'm4xshen/autoclose.nvim'
     use 'numToStr/Comment.nvim'
     use 'norcalli/nvim-colorizer.lua'
-    use 'rose-pine/neovim'
     use {
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate'
@@ -87,46 +86,7 @@ packer.startup(function(use)
 end)
 
 -- Colors Config
-require('rose-pine').setup({
-	variant = 'auto',
-	dark_variant = 'main',
-	bold_vert_split = false,
-	dim_nc_background = false,
-	disable_background = true,
-	disable_float_background = false,
-	disable_italics = true,
-
-	groups = {
-		background = 'base',
-		panel = 'surface',
-		border = 'highlight_med',
-		comment = 'muted',
-		link = 'iris',
-		punctuation = 'subtle',
-
-		error = 'love',
-		hint = 'iris',
-		info = 'foam',
-		warn = 'gold',
-
-		headings = {
-			h1 = 'iris',
-			h2 = 'foam',
-			h3 = 'rose',
-			h4 = 'gold',
-			h5 = 'pine',
-			h6 = 'foam',
-		}
-	},
-
-	highlight_groups = {
-		ColorColumn = { bg = 'rose' },
-
-		CursorLine = { bg = 'foam', blend = 10 },
-		StatusLine = { fg = 'love', bg = 'love', blend = 10 },
-	}
-})
-vim.cmd('colorscheme rose-pine')
+-- NULL
 
 -- Treesitter Config
 require'nvim-treesitter.configs'.setup {
