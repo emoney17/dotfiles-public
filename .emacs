@@ -96,7 +96,8 @@
   "bk" 'kill-buffer ;; :q kills buffer and window like vim
   ;;"bk" 'kill-buffer-and-window
   "ot" 'mini-terminal
-  "oT" 'vterm)
+  "oT" 'vterm
+  "el" 'elfeed)
 
 (use-package evil
   :ensure t
@@ -113,7 +114,8 @@
    '("02f57ef0a20b7f61adce51445b68b2a7e832648ce2e7efb19d217b6454c1b644" "afa47084cb0beb684281f480aa84dab7c9170b084423c7f87ba755b15f6776ef" "60ada0ff6b91687f1a04cc17ad04119e59a7542644c7c59fc135909499400ab8" "e13beeb34b932f309fb2c360a04a460821ca99fe58f69e65557d6c1b10ba18c7" default))
  '(elfeed-feeds nil)
  '(package-selected-packages
-   '(evil-commentary emojify elfeed company evil-leader magit vterm smex markdown-mode which-key flycheck evil use-package)))
+   '(evil-commentary emojify elfeed company evil-leader magit vterm smex markdown-mode which-key flycheck evil use-package))
+ '(warning-suppress-types '((emacs) (emacs))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -219,7 +221,7 @@
       '(("https://nitter.net/yuniruyuni/rssi" twitter)
 	("https://nitter.net/sudobunni/rss" twitter)
 	("https://nitter.net/ThePrimeagen/rss" twitter)
-	;;"https://nitter.net/Aeyga_X/rss" twitter)
+	;; ("https://nitter.net/Aeyga_X/rss" twitter)
 	("https://inv.vern.cc/feed/channel/UCVls1GmFKf6WlTraIb_IaJg" youtube)
 	("https://inv.vern.cc/feed/channel/UC7YOGHUfC1Tb6E4pudI9STA" youtube)
 	("https://inv.vern.cc/feed/channel/UCsvn_Po0SmunchJYOWpOxMg" youtube)
