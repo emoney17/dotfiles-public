@@ -16,8 +16,7 @@
 
 ;; If there is no splash screen file, just remove the splash screen
 (if (file-exists-p "~/.emacs.d/splash.png")
-    (setq fancy-splash-image "~/.emacs.d/splash.png")
-  (setq inhibit-splash-screen t))
+    (setq fancy-splash-image "~/.emacs.d/splash.png"))
 
 ;; Set indent level for c/c++
 (setq-default c-basic-offset 4)
@@ -65,7 +64,7 @@
         ;;no errors, make the compilation window go away in a few seconds
         (progn
           (run-at-time
-           "0.5 sec" nil 'delete-windows-on
+           "2 sec" nil 'delete-windows-on
            (get-buffer-create "*compilation*"))
           (message "No Compilation Errors!")))))   
 
@@ -74,6 +73,9 @@
 
 (use-package org
   :ensure t)
+
+;; For evil collection must be before all evil packages
+(setq evil-want-keybinding nil) 
 
 (use-package evil-leader
   :ensure t)
@@ -94,7 +96,6 @@
   "fb" 'switch-to-buffer
   "bi" 'ibuffer
   "bk" 'kill-buffer ;; :q kills buffer and window like vim
-  ;;"bk" 'kill-buffer-and-window
   "ot" 'mini-terminal
   "oT" 'vterm
   "el" 'elfeed
@@ -102,27 +103,17 @@
 
 (use-package evil
   :ensure t
+  :init
+  (setq evil-want-integration t) ;; This is optional since it's already set to t by default.
+  (setq evil-want-keybinding nil)
   :config
   (evil-mode 1))
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-enabled-themes '(gruber-darker))
- '(custom-safe-themes
-   '("02f57ef0a20b7f61adce51445b68b2a7e832648ce2e7efb19d217b6454c1b644" "afa47084cb0beb684281f480aa84dab7c9170b084423c7f87ba755b15f6776ef" "60ada0ff6b91687f1a04cc17ad04119e59a7542644c7c59fc135909499400ab8" "e13beeb34b932f309fb2c360a04a460821ca99fe58f69e65557d6c1b10ba18c7" default))
- '(elfeed-feeds nil)
- '(package-selected-packages
-   '(evil-commentary emojify elfeed company evil-leader magit vterm smex markdown-mode which-key flycheck evil use-package))
- '(warning-suppress-types '((emacs) (emacs))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+(use-package evil-collection
+  :after evil
+  :ensure t
+  :config
+  (evil-collection-init))
 
 ;; Evil mode vim comments
 (use-package evil-commentary
@@ -202,13 +193,14 @@
   :ensure t)
 
 (use-package vterm
-  :ensure t
-  :config
-  ;; Disable read only mode on buffer so pase work
-  (add-hook 'vterm-mode-hook
-	    (lambda()
-	      (read-only-mode -1)
-	      (evil-local-set-key 'normal "p" 'vterm-yank))))
+  :ensure t)
+  ;; Fixed by evil collection 
+  ;; :config
+  ;; ;; Disable read only mode on buffer so pase work
+  ;; (add-hook 'vterm-mode-hook
+  ;; 	    (lambda()
+  ;; 	      (read-only-mode -1)
+  ;; 	      (evil-local-set-key 'normal "p" 'vterm-yank))))
 
 ;; Set normal line scroll
 (setq scroll-conservatively 10)
@@ -222,6 +214,8 @@
       '(("https://nitter.net/yuniruyuni/rssi" twitter)
 	("https://nitter.net/sudobunni/rss" twitter)
 	("https://nitter.net/ThePrimeagen/rss" twitter)
+	("https://nitter.net/39daph/rss" twitter)
+	("https://nitter.net/Erobb221/rss" twitter)
 	;; ("https://nitter.net/Aeyga_X/rss" twitter)
 	("https://inv.vern.cc/feed/channel/UCVls1GmFKf6WlTraIb_IaJg" youtube)
 	("https://inv.vern.cc/feed/channel/UC7YOGHUfC1Tb6E4pudI9STA" youtube)
@@ -233,6 +227,8 @@
 	("https://inv.vern.cc/feed/channel/UC9H0HzpKf5JlazkADWnW1Jw" youtube)
 	("https://inv.vern.cc/feed/channel/UC8ENHE5xdFSwx71u3fDH5Xw" youtube)
 	("https://inv.vern.cc/feed/channel/UCUyeluBRhGPCW4rPe_UvBZQ" youtube)
+	("https://inv.vern.cc/feed/channel/UC8rDfqkcikgjKNsBMY8TOkw" youtube)
+	("https://inv.vern.cc/feed/channel/UCp0PuGDPVc9A-lZ7B-1PB-A" youtube)
 	("https://inv.vern.cc/feed/channel/UCXEJNKH9I4xsoyUNN3IL96A" youtube)))
 
 ;; Keep evil mode from interfeering with elfeed mode
@@ -251,3 +247,17 @@
 ;; Transparency
 ;;(set-frame-parameter (selected-frame) 'alpha '(95 . 50))
 ;;(add-to-list 'default-frame-alist '(alpha . (95 . 50)))
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(emojify elfeed vterm magit company flycheck smex org-superstar markdown-mode which-key evil-commentary evil-collection evil-leader gruber-darker-theme use-package)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
