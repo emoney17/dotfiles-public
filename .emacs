@@ -74,9 +74,6 @@
 (use-package org
   :ensure t)
 
-;; For evil collection must be before all evil packages
-(setq evil-want-keybinding nil) 
-
 (use-package evil-leader
   :ensure t)
 
@@ -103,17 +100,8 @@
 
 (use-package evil
   :ensure t
-  :init
-  (setq evil-want-integration t) ;; This is optional since it's already set to t by default.
-  (setq evil-want-keybinding nil)
   :config
   (evil-mode 1))
-
-(use-package evil-collection
-  :after evil
-  :ensure t
-  :config
-  (evil-collection-init))
 
 ;; Evil mode vim comments
 (use-package evil-commentary
@@ -189,18 +177,15 @@
 (global-set-key (kbd "C-=") 'text-scale-increase)
 (global-set-key (kbd "C--") 'text-scale-decrease)
 
-(use-package magit
-  :ensure t)
-
 (use-package vterm
-  :ensure t)
+  :ensure t
   ;; Fixed by evil collection 
-  ;; :config
-  ;; ;; Disable read only mode on buffer so pase work
-  ;; (add-hook 'vterm-mode-hook
-  ;; 	    (lambda()
-  ;; 	      (read-only-mode -1)
-  ;; 	      (evil-local-set-key 'normal "p" 'vterm-yank))))
+  :config
+  ;; Disable read only mode on buffer so pase work
+  (add-hook 'vterm-mode-hook
+  	    (lambda()
+  	      (read-only-mode -1)
+  	      (evil-local-set-key 'normal "p" 'vterm-yank))))
 
 ;; Set normal line scroll
 (setq scroll-conservatively 10)
@@ -248,16 +233,4 @@
 ;;(set-frame-parameter (selected-frame) 'alpha '(95 . 50))
 ;;(add-to-list 'default-frame-alist '(alpha . (95 . 50)))
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(emojify elfeed vterm magit company flycheck smex org-superstar markdown-mode which-key evil-commentary evil-collection evil-leader gruber-darker-theme use-package)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+;;; .emacs ends here
