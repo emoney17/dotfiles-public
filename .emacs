@@ -74,6 +74,9 @@
 (use-package org
   :ensure t)
 
+;; Evil collection
+(setq evil-want-keybinding nil)
+
 (use-package evil-leader
   :ensure t)
 
@@ -100,8 +103,16 @@
 
 (use-package evil
   :ensure t
+  :init
+  (setq evil-want-integration t) ;; This is optional since it's already set to t by default.
   :config
   (evil-mode 1))
+
+(use-package evil-collection
+  :after evil
+  :ensure t
+  :config
+  (evil-collection-init))
 
 ;; Evil mode vim comments
 (use-package evil-commentary
@@ -178,14 +189,14 @@
 (global-set-key (kbd "C--") 'text-scale-decrease)
 
 (use-package vterm
-  :ensure t
+  :ensure t)
   ;; Fixed by evil collection 
-  :config
-  ;; Disable read only mode on buffer so pase work
-  (add-hook 'vterm-mode-hook
-  	    (lambda()
-  	      (read-only-mode -1)
-  	      (evil-local-set-key 'normal "p" 'vterm-yank))))
+  ;; :config
+  ;; ;; Disable read only mode on buffer so pase work
+  ;; (add-hook 'vterm-mode-hook
+  ;; 	    (lambda()
+  ;; 	      (read-only-mode -1)
+  ;; 	      (evil-local-set-key 'normal "p" 'vterm-yank))))
 
 ;; Set normal line scroll
 (setq scroll-conservatively 10)
