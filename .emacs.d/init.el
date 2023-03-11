@@ -1,6 +1,4 @@
-;; Requires use-package
-
-;; Basics
+;;; Basics
 
 (setq user-emacs-directory "~/.emacs.d")
 (require 'package)
@@ -14,12 +12,10 @@
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 
-(setq backup-directory-alist '(("." . "~/.emacs_saves")))
-
 (if (file-exists-p "~/.emacs.d/splash.png")
     (setq fancy-splash-image "~/.emacs.d/splash.png"))
 
-(set-frame-font "Monospace-12")
+(setq backup-directory-alist '(("." . "~/.emacs_saves")))
 
 (recentf-mode 1)
 (setq recentf-max-menu-items 10)
@@ -42,31 +38,27 @@
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "librewolf")
 
-;; (setenv "HOME" "/home/anon")
+;;; Coding
 
-;;(set-frame-parameter (selected-frame) 'alpha '(95 . 50))
-;;(add-to-list 'default-frame-alist '(alpha . (95 . 50)))
 
-;; Coding
-
-(setq-default c-basic-offset 4)
-(setq-default c-default-style "bsd")
-
+(setq-default c-basic-offset 4
+              c-default-style '((java-mode . "java")
+                                (other . "bsd")))
 (electric-pair-mode 1)
 
-;; Packages
+;;; Packages and other settings
 
+;; Theme
 (use-package gruber-darker-theme
   :ensure t)
 
-(use-package org
-  :ensure t)
+;; Evil setup
+(setq evil-want-keybinding nil) ;; Evil collection
 
 (use-package evil-leader
   :ensure t
   :config
-  (global-evil-leader-mode)
-  (setq evil-leader/no-prefix-mode-rx '("magit-.*-mode" "gnus-.*-mode")))
+  (global-evil-leader-mode))
 
 (use-package evil
   :ensure t
@@ -75,11 +67,18 @@
   (setq evil-insert-state-cursor 'box
 	evil-normal-state-cursor 'box))
 
+(use-package evil-collection
+  :after evil
+  :ensure t
+  :config
+  (evil-collection-init))
+
 (use-package evil-commentary
   :ensure t
   :config
   (evil-commentary-mode))
 
+;; Which key
 (use-package which-key
     :config
     (setq which-key-idle-delay 0.3)
@@ -90,28 +89,27 @@
 	:weight 'bold)
     :ensure t)
 
-(use-package org-superstar
-  :ensure t
-  :config
-  (setq org-startup-indented t)
-  (setq org-startup-with-inline-images t)
-  (add-hook 'org-mode-hook
-	    (lambda () (org-superstar-mode 1))))
-  
+;; Helm or Ido
 (setq ido-everywhere t)
 (setq ido-enable-flex-matching t)
 (ido-mode t)
 
+;; Smex
 (use-package smex
   :ensure t
   :config
-  (smex-initialize))
+  (smex-initialize)
+  (global-set-key (kbd "M-x") 'smex)
+  (global-set-key (kbd "M-X") 'smex-major-mode-commands)
+  (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command))
 
+;; Flycheck
 (use-package flycheck
   :ensure t
   :init
   (global-flycheck-mode t))
 
+;; Company
 (use-package company
   :ensure t
   :config
@@ -119,38 +117,9 @@
   ;; (setq company-idle-delay 0)
   (add-hook 'after-init-hook 'global-company-mode))
 
-(use-package vterm
-  :ensure t
-  :config
-  (add-hook 'vterm-mode-hook
-	    (lambda()
-	      (evil-insert-state)
-	      (read-only-mode -1)
-	      (evil-local-set-key 'normal "p" 'vterm-yank))))
+;;; Keybinds
 
-(use-package elfeed
-  :ensure t
-  :config
-  (add-to-list 'evil-emacs-state-modes 'elfeed-search-mode)
-  (add-to-list 'evil-emacs-state-modes 'elfeed-show-mode)
-  (setq elfeed-feeds
-	'(("https://nitter.net/39daph/rss" twitter)
-	  ("https://nitter.net/Erobb221/rss" twitter))))
-
-(use-package emojify
-  :ensure t
-  :hook (after-init . global-emojify-mode))
-
-
-;; Keybinds and functions
-
-(defun mini-terminal ()
-  "Opens a vterm buffer in a split below the window."
-  (interactive)
-  (split-window-vertically)
-  (window-swap-states)
-  (vterm))
-
+;; Evil leader keybinds
 (evil-leader/set-leader "<SPC>")
 (evil-leader/set-key
   "."  'dired
@@ -165,16 +134,25 @@
   "fr" 'recentf-open-files
   "fb" 'switch-to-buffer
   "bi" 'ibuffer
-  "bk" 'kill-buffer
-  "ot" 'mini-terminal
-  "oT" 'vterm
-  "el" 'elfeed)
+  "bk" 'kill-buffer)
 
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)
-(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
-
+;; Zoom
 (global-set-key (kbd "C-=") 'text-scale-increase)
 (global-set-key (kbd "C--") 'text-scale-decrease)
 
-;;; .emacs ends here
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-enabled-themes '(gruber-darker))
+ '(custom-safe-themes
+   '("e13beeb34b932f309fb2c360a04a460821ca99fe58f69e65557d6c1b10ba18c7" default))
+ '(package-selected-packages
+   '(company flycheck smex which-key evil-commentary evil-collection evil-leader gruber-darker-theme use-package)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

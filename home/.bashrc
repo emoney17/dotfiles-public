@@ -5,14 +5,14 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-#PS1='[\u@\h \w]\$ '
-PS1='\w '
-#PS1='\[\e[0;92m\]\u\[\e[0;92m\]@\[\e[0;92m\]\h\[\e[0m\]:\[\e[0;94m\]\w\[\e[0;94m\]\$\[\e[0m\] '
+PATH=$PATH:~/.local/bin
 
-alias grep='grep --color=auto'
+PS1='[\u@\h \W]\$ '
+
 alias ls='ls --color=auto'
-alias ll='ls -lo'
-alias la='ls -alo'
+alias grep='grep --color=auto'
+alias ll='ls -l'
+alias la='ls -al'
 
 alias ..='cd ../'
 alias ...='cd ../..'
@@ -27,6 +27,9 @@ alias gpp='git push origin master'
 alias gp='git pull origin master'
 
 alias lf='lfrun'
+alias vim='nvim'
+
+alias yt-dlp='yt-dlp --sub-langs en.* --embed-subs'
 
 export EDITOR="nvim"
 export READER="zathura"
@@ -34,5 +37,3 @@ export IMAGE="feh"
 export TERMINAL="st"
 export BROWSER="librewolf"
 export VIDEO="mpv"
-
-PATH=$PATH:~/.local/bin

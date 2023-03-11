@@ -4,7 +4,6 @@ set ifs "\n"
 set scrolloff 10
 
 set ignorecase true
-set info size
 
 set previewer ~/.config/lf/preview
 set cleaner ~/.config/lf/cleaner
@@ -56,4 +55,3 @@ map x cut
 map y copy
 map R reload
 map <enter> shell
-
