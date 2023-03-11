@@ -96,10 +96,14 @@
 (ido-mode t)
 
 ;; Dired
-(use-package dired+
-  :load-path "~/.emacs.d/packages/dired+"
-  :config
-  (toggle-diredp-find-file-reuse-dir 1))
+(require 'dired )
+(if (< emacs-major-version 28)
+    (progn
+      (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file) ; was dired-advertised-find-file
+      (define-key dired-mode-map (kbd "^") (lambda () (interactive) (find-alternate-file ".."))) ; was dired-up-directory
+      )
+  (progn
+    (setq dired-kill-when-opening-new-dired-buffer t)))
 
 ;; Smex
 (use-package smex
