@@ -17,6 +17,8 @@
 
 (setq backup-directory-alist '(("." . "~/.emacs_saves")))
 
+(set-frame-font "Liberation Mono-12")
+
 (recentf-mode 1)
 (setq recentf-max-menu-items 10)
 (setq recentf-max-saved-items 10)
@@ -39,7 +41,6 @@
       browse-url-generic-program "librewolf")
 
 ;;; Coding
-
 
 (setq-default c-basic-offset 4
               c-default-style '((java-mode . "java")
@@ -93,6 +94,12 @@
 (setq ido-everywhere t)
 (setq ido-enable-flex-matching t)
 (ido-mode t)
+
+;; Dired
+(use-package dired+
+  :load-path "~/.emacs.d/packages/dired+"
+  :config
+  (toggle-diredp-find-file-reuse-dir 1))
 
 ;; Smex
 (use-package smex
@@ -149,7 +156,7 @@
  '(custom-safe-themes
    '("e13beeb34b932f309fb2c360a04a460821ca99fe58f69e65557d6c1b10ba18c7" default))
  '(package-selected-packages
-   '(company flycheck smex which-key evil-commentary evil-collection evil-leader gruber-darker-theme use-package)))
+   '(dired+ company flycheck smex which-key evil-commentary evil-collection evil-leader gruber-darker-theme use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
