@@ -29,7 +29,7 @@ alias gp='git pull origin master'
 alias lf='lfrun'
 alias vim='nvim'
 
-alias yt-dlp='yt-dlp --sub-langs en.* --embed-subs'
+alias yt-dlp='yt-dlp --sub-langs en.* --embed-subs --embed-metadata'
 
 export EDITOR="nvim"
 export READER="zathura"
