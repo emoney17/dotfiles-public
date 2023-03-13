@@ -17,7 +17,7 @@
 
 (setq backup-directory-alist '(("." . "~/.emacs_saves")))
 
-(set-frame-font "Liberation Mono-12")
+;; (set-frame-font "Liberation Mono-12")
 
 (recentf-mode 1)
 (setq recentf-max-menu-items 10)
